@@ -1,0 +1,49 @@
+package com.example.personal_expense_tracker.data
+
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkCapabilities
+import androidx.core.net.toUri
+import dagger.hilt.android.qualifiers.ApplicationContext
+import java.io.File
+import java.util.UUID
+import javax.inject.Inject
+import javax.inject.Singleton
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
+
+@Singleton
+class NetworkMonitor @Inject constructor(@ApplicationContext context: Context) {
+    private val manager = context.getSystemService(ConnectivityManager::class.java)
+
+    val isOnline: Flow<Boolean> = callbackFlow {
+        fun current() = manager.activeNetwork?.let(manager::getNetworkCapabilities)
+            ?.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED) == true
+        trySend(current())
+        val callback = object : ConnectivityManager.NetworkCallback() {
+            override fun onAvailable(network: Network) { trySend(current()) }
+            override fun onLost(network: Network) { trySend(current()) }
+            override fun onCapabilitiesChanged(network: Network, capabilities: NetworkCapabilities) {
+                trySend(current())
+            }
+        }
+        manager.registerDefaultNetworkCallback(callback)
+        awaitClose { manager.unregisterNetworkCallback(callback) }
+    }.distinctUntilChanged()
+}
+
+@Singleton
+class ReceiptStore @Inject constructor(@param:ApplicationContext private val context: Context) {
+    fun copy(uriString: String): String {
+        val directory = File(context.filesDir, "receipts").apply { mkdirs() }
+        val target = File(directory, "${UUID.randomUUID()}.jpg")
+        context.contentResolver.openInputStream(uriString.toUri()).use { input ->
+            requireNotNull(input) { "Could not open receipt" }
+            target.outputStream().use(input::copyTo)
+        }
+        return target.absolutePath
+    }
+}
