@@ -1,35 +1,13 @@
-package com.example.personal_expense_tracker.data.local
+package com.example.personal_expense_tracker.data.local.dao
 
 import androidx.room.Dao
-import androidx.room.Database
-import androidx.room.Entity
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.RoomDatabase
 import androidx.room.Transaction
+import com.example.personal_expense_tracker.data.local.entity.ExpenseEntity
+import com.example.personal_expense_tracker.data.local.entity.SyncQueueEntity
 import kotlinx.coroutines.flow.Flow
-
-@Entity(tableName = "expenses", primaryKeys = ["id"])
-data class ExpenseEntity(
-    val id: String,
-    val title: String,
-    val amountCents: Long,
-    val category: String,
-    val spentAt: Long,
-    val note: String,
-    val receiptPath: String?,
-    val updatedAt: Long,
-    val syncState: String,
-    val deleted: Boolean,
-)
-
-@Entity(tableName = "sync_queue", primaryKeys = ["expenseId"])
-data class SyncQueueEntity(
-    val expenseId: String,
-    val operation: String,
-    val queuedAt: Long,
-)
 
 @Dao
 interface ExpenseDao {
@@ -68,9 +46,4 @@ interface ExpenseDao {
         upsertExpense(expense)
         enqueue(SyncQueueEntity(expense.id, operation, expense.updatedAt))
     }
-}
-
-@Database(entities = [ExpenseEntity::class, SyncQueueEntity::class], version = 1, exportSchema = true)
-abstract class ExpenseDatabase : RoomDatabase() {
-    abstract fun expenseDao(): ExpenseDao
 }

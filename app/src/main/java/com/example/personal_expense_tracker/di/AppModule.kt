@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.room.Room
 import androidx.work.WorkManager
 import com.example.personal_expense_tracker.data.ExpenseRepositoryImpl
-import com.example.personal_expense_tracker.data.local.ExpenseDao
-import com.example.personal_expense_tracker.data.local.ExpenseDatabase
-import com.example.personal_expense_tracker.data.remote.ExpenseApi
+import com.example.personal_expense_tracker.data.local.dao.ExpenseDao
+import com.example.personal_expense_tracker.data.local.database.ExpenseDatabase
+import com.example.personal_expense_tracker.data.remote.api.ExpenseApi
 import com.example.personal_expense_tracker.domain.repository.ExpenseRepository
 import com.example.personal_expense_tracker.domain.usecase.CalculateMonthlySummaryUseCase
 import com.example.personal_expense_tracker.domain.usecase.DeleteExpenseUseCase

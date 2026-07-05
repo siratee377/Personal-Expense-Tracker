@@ -2,8 +2,8 @@ package com.example.personal_expense_tracker.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.personal_expense_tracker.data.NetworkMonitor
-import com.example.personal_expense_tracker.data.ReceiptStore
+import com.example.personal_expense_tracker.data.network.NetworkMonitor
+import com.example.personal_expense_tracker.data.storage.ReceiptStore
 import com.example.personal_expense_tracker.domain.enum.ExpenseCategory
 import com.example.personal_expense_tracker.domain.model.Expense
 import com.example.personal_expense_tracker.domain.model.ExpenseDraft
