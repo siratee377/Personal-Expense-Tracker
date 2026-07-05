@@ -1,6 +1,13 @@
 package com.example.personal_expense_tracker.domain
 
-import java.util.Calendar
+import com.example.personal_expense_tracker.domain.enum.ExpenseCategory
+import com.example.personal_expense_tracker.domain.enum.SyncState
+import com.example.personal_expense_tracker.domain.model.Expense
+import com.example.personal_expense_tracker.domain.model.ExpenseDraft
+import com.example.personal_expense_tracker.domain.repository.ExpenseRepository
+import com.example.personal_expense_tracker.domain.usecase.CalculateMonthlySummaryUseCase
+import com.example.personal_expense_tracker.domain.usecase.SaveExpenseUseCase
+import com.example.personal_expense_tracker.domain.util.shouldApplyRemoteChange
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
@@ -8,6 +15,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import java.util.Calendar
 
 class ExpenseUseCasesTest {
     @Test

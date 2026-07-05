@@ -7,10 +7,10 @@ import com.example.personal_expense_tracker.data.ExpenseRepositoryImpl
 import com.example.personal_expense_tracker.data.local.ExpenseDao
 import com.example.personal_expense_tracker.data.local.ExpenseDatabase
 import com.example.personal_expense_tracker.data.remote.ExpenseApi
-import com.example.personal_expense_tracker.domain.DeleteExpenseUseCase
-import com.example.personal_expense_tracker.domain.CalculateMonthlySummaryUseCase
-import com.example.personal_expense_tracker.domain.ExpenseRepository
-import com.example.personal_expense_tracker.domain.SaveExpenseUseCase
+import com.example.personal_expense_tracker.domain.repository.ExpenseRepository
+import com.example.personal_expense_tracker.domain.usecase.CalculateMonthlySummaryUseCase
+import com.example.personal_expense_tracker.domain.usecase.DeleteExpenseUseCase
+import com.example.personal_expense_tracker.domain.usecase.SaveExpenseUseCase
 import com.example.personal_expense_tracker.sync.SyncScheduler
 import com.example.personal_expense_tracker.sync.WorkManagerSyncScheduler
 import dagger.Binds

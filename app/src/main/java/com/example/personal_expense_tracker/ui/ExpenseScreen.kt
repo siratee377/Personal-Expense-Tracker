@@ -69,10 +69,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.personal_expense_tracker.domain.Expense
-import com.example.personal_expense_tracker.domain.ExpenseCategory
-import com.example.personal_expense_tracker.domain.MonthlySummary
-import com.example.personal_expense_tracker.domain.SyncState
+import com.example.personal_expense_tracker.domain.enum.ExpenseCategory
+import com.example.personal_expense_tracker.domain.enum.SyncState
+import com.example.personal_expense_tracker.domain.model.Expense
+import com.example.personal_expense_tracker.domain.model.MonthlySummary
 import java.io.File
 import java.math.BigDecimal
 import java.text.DateFormat
